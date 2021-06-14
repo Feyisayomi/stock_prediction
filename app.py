@@ -4,10 +4,10 @@ import matplotlib.pyplot as plt
 import yfinance as yf
 from flask import Flask, render_template, send_file, request
 import json
-from prophet.serialize import model_to_json, model_from_json
+from fbprophet.serialize import model_to_json, model_from_json
 import streamlit as st
 import yfinance as yf
-from datetime import datefrom datetime import date, datetime
+from datetime import date, datetime
 from fbprophet.plot import plot_plotly
 from plotly import graph_objs as go
 
@@ -64,43 +64,66 @@ st.markdown(
 st.markdown(
     f"""
     <div class="container">
-        <img class="logo-img" height="200" src="https://pngimg.com/uploads/bitcoin/bitcoin_PNG30.png">
-        <p class="logo-text">ETH-BTC Prediction app</p>
+        <img class="logo-img" height="200" src="pictur.png">
+        <p class="logo-text">Stock Prediction app</p>
     </div>
     """,
     unsafe_allow_html=True
 )
 st.sidebar.markdown("<p class='big-font'><font color='black'>Prediction days</font></p>", unsafe_allow_html=True)
 no_of_days = int(st.sidebar.number_input('Number of days to predict:', min_value=0, max_value=1000000, value=365, step=1))
-data = pd.read_csv("CryptoPrediction/crypto.csv")
+stock_name = st.sidebar.text_input('Symbol of stock to predict:')
+start  = datetime(2015,1,1)
+end = date.today()
+data_df = yf.Ticker(stock_name)
+data = data_df.history(start = start, end=end, interval="1d")
 
 st.subheader("Data")
 st.write(data.tail())
-df = data[["time", "close"]].copy()
-df= df.rename(columns={"date": "ds", "close": "y"})
+data = data.reset_index()
+df = data[["Date", "Close"]].copy()
+df= df.rename(columns={"Date": "ds", "Close": "y"})
 
 
 def plot_raw_data():
 	fig = go.Figure()
-	fig.add_trace(go.Scatter(x=data['date'], y=data['y'], name="Close"))
+	fig.add_trace(go.Scatter(x=df['ds'], y=df['y'], name="Close"))
 	fig.layout.update(title_text='raw data with Rangeslider', xaxis_rangeslider_visible=True)
 	st.plotly_chart(fig)
 
 if st.button("predict"):
-    model = Prophet(changepoint_range=0.8,
-        yearly_seasonality='auto',
-        weekly_seasonality='auto',
-        daily_seasonality=True,
-        seasonality_mode='multiplicative',
-        changepoint_prior_scale=0.05
-		)
+    model = Prophet(
+    growth="linear",
+    seasonality_mode="additive",
+    changepoint_prior_scale =30,
+    seasonality_prior_scale=35,
+    holidays_prior_scale = 20,
+    daily_seasonality = False,
+    weekly_seasonality = False,
+    yearly_seasonality = False,).add_seasonality(
+    name="monthly",
+    period =30.5,
+    fourier_order = 55).add_seasonality(
+    name="daily",
+    period =1,
+    fourier_order = 15).add_seasonality(
+    name="weekly",
+    period = 7,
+    fourier_order = 20).add_seasonality(
+    name="yearly",
+    period =365.25,
+    fourier_order = 20).add_seasonality(
+    name="quarterly",
+    period =365.25/4,
+    fourier_order = 15,
+    prior_scale = 15)
     model.fit(df)
 
     future = model.make_future_dataframe(periods=no_of_days)
     forecast = model.predict(future)
 
     st.subheader("Prediction Data")
-    st.write(forecast.head(30))
+    st.write(forecast.tail(30))
 
     st.subheader(f'Forecast plot for {no_of_days} days')
     fig1 = plot_plotly(model, forecast)
