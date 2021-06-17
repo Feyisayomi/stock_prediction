@@ -64,7 +64,7 @@ st.markdown(
 st.markdown(
     f"""
     <div class="container">
-        <img class="logo-img" height="200" src="pictur.png">
+        <img class="logo-img" src="pictur.png">
         <p class="logo-text">Stock Prediction app</p>
     </div>
     """,
