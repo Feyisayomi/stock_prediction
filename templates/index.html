@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Stock Prediction</title>
+        <body style="background-color:rgb(145, 52, 121)">
+        
+            
+            <h1 style="color: rgb(160, 220, 20); text-align: center; font-size: xx-large; font-family: 'Times New Roman', Times, serif;">Stock Prediction App</h1><br>
+            <form method="POST", action="{{url_for('predict')}}">
+                <label style="color: crimson; font-size: large;" for="stock">Stock Name:</label><br><br>
+                <select name="stock" id="stock" required>
+                    <option value="apple">APPL</option>
+                    <option value="bitcoin">BTC</option>
+                    <option value="bmw">BMW.DE</option>
+                    <option value="nio">NIO</option>
+                    <option value="siemens">SIEMENS.DE</option>
+                </select><br><br><br>
+                <label style="font-size: large; color: crimson;" for="horizon">Period:</label><br>
+                <input type="number" id="horizon" name="horizon"><br><br><br>
+                <input type="submit" value="Predict"><br><br>
+            </form>
+            <img src="/pictur.png" alt="Yahoo Finance Stocks">
+        </body>
+    </head>
+</html>
