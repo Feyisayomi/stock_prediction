@@ -56,10 +56,9 @@ def predict():
     future = model.make_future_dataframe(periods =period, freq="M")
     forecast = model.predict(future)
     future_ = forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']].tail()
-    tables=[future_.to_html(classes='data', header="true")]
     ax = model.plot(forecast);
     df = model.plot_components(forecast);
-    return render_template("index.html", prediction_result = "Future Data {}".format(tables), Forecast = "Forecast Plot {}".format(ax), Components= "Forecast Component {}".format(df))
+    return render_template("predict.html", prediction_result =[future_.to_html(classes='data', header="true")] , Forecast = ax, Components= df)
         
 # @app.route('/predict_api', methods=['POST'])
 

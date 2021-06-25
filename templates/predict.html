@@ -12,8 +12,23 @@
         <title>Prediction Result</title>
     </head>
     <body>
-        <h1 style="font-family: 'Times New Roman', Times, serif; font-size: xx-large; color: darkolivegreen;">Prediction</h2><br><br>
+        <h1 style="font-family: 'Times New Roman Times', serif; font-size: 5vw; color:whitesmoke; text-align: center;">Predictions</h2><br><br>
          <a href="/">home page</a>   
+        <br>
+         <br>
+         {% if Prediction_result%}
+             <p style="color:darkred; font-size: 1vw;"> Predicted Data:</p> {{Prediction_result}}
+         {%endif%}
+         <br>
+         <br>
+         {% if Forecast%}
+             <p style="color: darkred; font-size: 1vw;"> Forecast Plot</p> {{Forecast}}
+             {%endif%}
+         <br>
+         <br>
+         {%if Components %}
+         <p style="color: darkred; font-size: 1vw;"> Forecast Components</p> {{Components}}
+         {%endif%}
 
     </body>
 </html>
