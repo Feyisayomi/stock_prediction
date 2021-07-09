@@ -15,19 +15,40 @@
         <h1 style="font-family: 'Times New Roman Times', serif; font-size: 5vw; color:whitesmoke; text-align: center;">Predictions</h2><br><br>
          <a href="/">home page</a>   
         <br>
-         <br>
-         {% if Prediction_result%}
-             <p style="color:darkred; font-size: 1vw;"> Predicted Data:</p> {{Prediction_result}}
-         {%endif%}
+        <br>
+    <!--
+    </table id="tableId" class="zebra" style="max-width:40px;">
+
+
+    <style>
+       *{box-sizing: border-box;}
+        table{border-collapse:collapse;}
+        td,th{padding:100px 150px;text-align:left;}
+        table,th,td{border:1px solid #000;
+        margin-left: 300px;
+        margin-right: ;
+        margin-top: -85px; 
+        max-width: 185px;
+    
+       </style>
+    -->
+    
+        <p style="color:darkred; font-size: 1vw;"> Predicted Data:</p>
+        {% for table in Prediction_data %}
+            {{titles[loop.index]}}
+            {{ table|safe }}
+        {% endfor %}
          <br>
          <br>
          {% if Forecast%}
              <p style="color: darkred; font-size: 1vw;"> Forecast Plot</p> {{Forecast}}
+             <img src="/ax_.png" alt="Forecast Plot">
              {%endif%}
          <br>
          <br>
          {%if Components %}
          <p style="color: darkred; font-size: 1vw;"> Forecast Components</p> {{Components}}
+         <img src="/df_.png" alt="Components Plot">
          {%endif%}
 
     </body>

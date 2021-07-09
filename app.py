@@ -1,12 +1,9 @@
 import pandas as pd
 from fbprophet import Prophet
 from flask import Flask, render_template, send_file, request
-from fbprophet.serialize import model_to_json, model_from_json
-from datetime import date, datetime
-from fbprophet.plot import plot_plotly
-from plotly import graph_objs as go
 import dill as pickle
 import matplotlib.pyplot as plt
+import mpld3
 
 app = Flask(__name__,
             static_url_path='/static', 
@@ -23,14 +20,6 @@ siemens_model = pickle.load(open("notebooks/siemens.pkl","rb"))
 def home():
     return render_template("index.html")
 
-# def prediction(model, period ):
-#     future = model.make_future_dataframe(periods =period, freq="M")
-#     forecast = model.predict(future)
-#     future_ = forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']].tail()
-#     tables=future_.to_html(classes='data', header="true")
-#     ax = model.plot(forecast);
-#     df = model.plot_components(forecast);
-#     return(tables, ax,df)
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -53,20 +42,15 @@ def predict():
     elif stock == "siemens":
         model = siemens_model
 
-    future = model.make_future_dataframe(periods =period, freq="M")
+    future = model.make_future_dataframe(periods =period, freq="D")
     forecast = model.predict(future)
     future_ = forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']].tail()
     ax = model.plot(forecast);
+    ax.savefig('axes.png')
     df = model.plot_components(forecast);
-    return render_template("predict.html", prediction_result =[future_.to_html(classes='data', header="true")] , Forecast = ax, Components= df)
-        
-# @app.route('/predict_api', methods=['POST'])
+    df.savefig('df_.png')
 
-#     return render_template(predict.html, future_, ax, df)
-
-
-    # predictions = prediction(m=model, p=period)
-    # return render_template('predict.html', predictions)
+    return render_template("predict.html", Prediction_data =[future_.to_html(classes='data')],titles=future_.columns.values, Forecast = "axes.png", Components= "df_.png")
 
 if __name__ == "__main__":
     app.run(debug=True)
