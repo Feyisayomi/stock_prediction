@@ -46,11 +46,11 @@ def predict():
     forecast = model.predict(future)
     future_ = forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']].tail()
     ax = model.plot(forecast);
-    ax.savefig('axes.png')
+    ax.savefig('html/static/ax.png')
     df = model.plot_components(forecast);
-    df.savefig('df_.png')
+    df.savefig('html/static/df_.png')
 
-    return render_template("predict.html", Prediction_data =[future_.to_html(classes='data')],titles=future_.columns.values, Forecast = "axes.png", Components= "df_.png")
+    return render_template("predict.html", Prediction_data =[future_.to_html(classes='data')],titles=future_.columns.values, Forecast = "html/static/ax.png", Components= "html/static/df_.png")
 
 if __name__ == "__main__":
     app.run(debug=True)

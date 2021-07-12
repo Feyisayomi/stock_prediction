@@ -16,24 +16,27 @@
          <a href="/">home page</a>   
         <br>
         <br>
-    <!--
+        
     </table id="tableId" class="zebra" style="max-width:40px;">
 
 
     <style>
        *{box-sizing: border-box;}
         table{border-collapse:collapse;}
-        td,th{padding:100px 150px;text-align:left;}
-        table,th,td{border:1px solid #000;
-        margin-left: 300px;
-        margin-right: ;
+        td,th{padding:20px 20px;text-align:left;}
+        table,th,td{border:1px solid rgba(20, 20, 20, 0.342);
+        margin-left: 100px;
+        margin-right: 100px; ;
         margin-top: -85px; 
         max-width: 185px;
+        background-color: cornsilk;
     
        </style>
-    -->
+
     
-        <p style="color:darkred; font-size: 1vw;"> Predicted Data:</p>
+        <p style="color:darkred; font-size: 3vw;"> Predicted Data:</p>
+        <br>
+        <br>
         {% for table in Prediction_data %}
             {{titles[loop.index]}}
             {{ table|safe }}
@@ -41,14 +44,14 @@
          <br>
          <br>
          {% if Forecast%}
-             <p style="color: darkred; font-size: 1vw;"> Forecast Plot</p> {{Forecast}}
-             <img src="/ax_.png" alt="Forecast Plot">
+             <p style="color: darkred; font-size: 3vw;"> Forecast Plot</p> {{Forecast}}
+             <img src="/static/ax.png" alt="Forecast Plot">
              {%endif%}
          <br>
          <br>
          {%if Components %}
-         <p style="color: darkred; font-size: 1vw;"> Forecast Components</p> {{Components}}
-         <img src="/df_.png" alt="Components Plot">
+         <p style="color: darkred; font-size: 3vw;"> Forecast Components</p> {{Components}}
+         <img src="/static/df_.png" alt="Components Plot">
          {%endif%}
 
     </body>
