@@ -4,7 +4,7 @@ setuptools>=26
 twine
 gensim==3.8.3
 wheel>=0.29
-pystan
+pystan==2.19.1.1
 fbprophet==0.7.1
 Flask==1.1.2
 Flask-SQLAlchemy==2.5.1
