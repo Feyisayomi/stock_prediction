@@ -1,12 +1,8 @@
 # packaging
 pip>=9
-setuptools>=26
-twine
-wheel>=0.29
 certifi==2020.12.5
 future==0.18.2
 # data science
-numpy
 pandas
 fbprophet==0.7.1
 flake8==3.8.4
@@ -16,7 +12,6 @@ pystan==2.19.1.1
 
 # tests/linter
 pytest
-yapf
 Werkzeug==1.0.1
 yapf==0.30.0
 yarl==1.1.0

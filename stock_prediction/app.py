@@ -2,7 +2,6 @@ import pandas as pd
 from fbprophet import Prophet
 from flask import Flask, render_template, send_file, request
 import dill as pickle
-import matplotlib.pyplot as plt
 import mpld3
 
 app = Flask(__name__,
