@@ -1,17 +1,15 @@
 # packaging
-pip>=9
 certifi==2020.12.5
 future==0.18.2
 # data science
 pandas
+numpy
 fbprophet==0.7.1
-flake8==3.8.4
 Flask==1.1.2
 Flask-SQLAlchemy==2.5.1
 pystan==2.19.1.1
 
 # tests/linter
-pytest
 Werkzeug==1.0.1
 yapf==0.30.0
 yarl==1.1.0
