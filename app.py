@@ -20,7 +20,7 @@ def home():
     return render_template("index.html")
 
 
-@app.route('/predict', methods=['POST', 'GET'])
+@app.route('/predict', methods=['POST'])
 def predict():
     period = int(request.form["horizon"])
     stock = request.form["stock"]
