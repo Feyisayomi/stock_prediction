@@ -2,12 +2,18 @@
 certifi==2020.12.5
 future==0.18.2
 # data science
-pandas
-numpy
+pandas==1.2.0
+numpy==1.19.5
 fbprophet==0.7.1
 Flask==1.1.2
 Flask-SQLAlchemy==2.5.1
 pystan==2.19.1.1
+gunicorn
+dill==0.3.3
+mpld3==0.5.5
+plotly==4.14.1
+cloudpickle==1.6.0
+statsmodels==0.11.0
 
 # tests/linter
 Werkzeug==1.0.1

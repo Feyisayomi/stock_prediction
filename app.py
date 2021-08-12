@@ -3,6 +3,9 @@ from fbprophet import Prophet
 from flask import Flask, render_template, send_file, request
 import dill as pickle
 import mpld3
+import plotly
+import matplotlib.pyplot as plt
+import os
 
 app = Flask(__name__,
             static_url_path='/static', 
@@ -52,4 +55,4 @@ def predict():
     return render_template("predict.html", Prediction_data =[future_.to_html(classes='data')],titles=future_.columns.values, Forecast = "html/static/ax.png", Components= "html/static/df_.png")
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0", port=os.environ['PORT'])
